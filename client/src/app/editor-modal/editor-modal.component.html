@@ -1,0 +1,20 @@
+  <div (click)="onContainerClicked($event)" class="modal fade" tabindex="-1" [ngClass]="{'in': visibleAnimate}"
+  [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+  <div class="modal-dialog">
+  	<div class="modal-content">
+  		<div class="modal-header">
+  			header
+  		</div>
+  		<div class="modal-body">
+  			Whatever content you like, form fields, anything
+  		</div>
+  		<div class="modal-footer">
+  			
+  			<button type="button" class="btn btn-danger" (click)="hide()">Cancel
+  			</button>
+
+  			<button type="button" class="btn btn-success" (click)="save()">Save</button>
+  		</div>
+  	</div>
+  </div>
+</div>

@@ -38,7 +38,7 @@
 	<div class="col-sm-12 col-md-12 col-lg-12">
 
 
-		<div class="btn-group" role="group" aria-label="Collapse All">
+		<div class="btn-group" role="group" aria-label="Collapse All" (click)="modal1.show()">
 			<button type="button" class="btn btn-default">Expand All</button>
 		</div>
 
@@ -47,5 +47,8 @@
 		</div>
 
 	</div>
+
+
+	<app-editor-modal #modal1></app-editor-modal>
 
 </div>

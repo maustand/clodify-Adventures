@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { ApiService } from '../utils/api/api.service';
-///import { NodeItem } from '../models/NodeItem';
+import { NodeItem } from '../models/node-item';
 
 
 
@@ -24,7 +24,7 @@ export class NodesService {
 	}
 
 
-	buildTree(list:any[],  Config = { idAttr: 'id', parentAttr: 'parentId', childrenAttr: 'children' }) {
+	buildTree(list:NodeItem[],  Config = { idAttr: 'id', parentAttr: 'parentId', childrenAttr: 'children' }) :NodeItem[] {
 
 
 		let treeList = [];
