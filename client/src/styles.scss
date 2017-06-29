@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+// version 3
+@import 'variables';
+@import '../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
+
+
+
+
+/** Tree node Styles **/
+.tree {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	border-left: 1px solid #000000;
+
+	.pull-right {
+  		position: absolute;
+  		right: 10px;
+	}
+	.node-wrapper {
+		margin-left: 5px;
+	}
+	.node-content-wrapper {
+	  display: flex;
+	  flex-wrap: wrap;
+	  align-items: baseline;
+	}
+
+	.node-content-wrapper {
+	  flex-grow: 1;
+	  position: relative;
+	}
+}
+
+

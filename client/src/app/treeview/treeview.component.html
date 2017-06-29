@@ -1,0 +1,52 @@
+<div data-view="treeview">
+
+	<div class="col-sm-12 col-md-12 col-lg-12">
+
+		<h4>Tree Node Actions</h4>
+
+		<div class="btn-group" role="group" aria-label="Crud Actions">
+			<button type="button" class="btn btn-default">Add  
+				<i class="glyphicon glyphicon-plus"></i>
+			</button>
+
+			<button type="button" class="btn btn-primary">Edit  
+				<i class="glyphicon glyphicon-pencil"></i>
+			</button>
+
+			<button type="button" class="btn btn-danger">Delete  
+				<i class="glyphicon glyphicon-trash"></i>
+			</button>
+		</div>
+
+
+		<div class="btn-group pull-right" role="group" aria-label="Save All">
+			<button type="button" class="btn btn-success">Save All  
+				<i class="glyphicon glyphicon-floppy-disk"></i>
+			</button>
+		</div>
+
+	</div>
+
+	<div class="col-sm-12 col-md-12 col-lg-12">
+
+		<tree-root 
+			[nodes]="NodesList"
+			(activate)="onTreeNodeActived($event)">
+		</tree-root>
+	
+	</div>
+
+	<div class="col-sm-12 col-md-12 col-lg-12">
+
+
+		<div class="btn-group" role="group" aria-label="Collapse All">
+			<button type="button" class="btn btn-default">Expand All</button>
+		</div>
+
+		<div class="btn-group" role="group" aria-label="Expand All">
+			<button type="button" class="btn btn-default">Collapse All</button>
+		</div>
+
+	</div>
+
+</div>
