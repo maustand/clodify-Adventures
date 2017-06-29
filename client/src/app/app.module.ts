@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import { TreeviewComponent } from './treeview/treeview.component';
 import { TreeModule } from 'angular-tree-component';
 
-import { ModalModule } from 'angular2-modal';
-import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+//import { ModalModule } from 'angular2-modal';
+//import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
 // Custom Provider for Http$Ajax
 import { ApiService } from './utils/api/api.service';
@@ -24,8 +24,8 @@ import { ApiService } from './utils/api/api.service';
     FormsModule,
     HttpModule,
     TreeModule,
-    ModalModule.forRoot(),
-    BootstrapModalModule
+    //ModalModule.forRoot(),
+    //BootstrapModalModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

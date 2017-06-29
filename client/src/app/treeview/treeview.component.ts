@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NodesService } from '../shared/nodes.service';
 import { TreeComponent } from 'angular-tree-component';
-import { NodeItem } from '../models/NodeItem';
+import { NodeItem } from '../models/node-item';
 
 @Component({
   selector: 'app-treeview',
@@ -16,7 +16,7 @@ export class TreeviewComponent implements OnInit {
   @ViewChild(TreeComponent)
 
   private tree: TreeComponent;
-	private NodesList: NodeItem[];
+	private NodesList: any[];
   private ifItCanDoAction: boolean;
   private lastNodeSelected: object;
 
