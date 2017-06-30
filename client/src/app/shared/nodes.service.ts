@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { ApiService } from '../utils/api/api.service';
 import { NodeItem } from '../models/node-item';
+import { Edition } from '../models/edition';
+import * as _ from "lodash";
 
 
 
@@ -17,29 +19,39 @@ export class NodesService {
 		.map(data => data );
 	}
 
-	update(payload: any) {
+	update(payload: Edition) {
 		return this.apiService
 		.put('/this/', payload )
 		.map(data => data);
 	}
 
 
-	buildTree(list:NodeItem[],  Config = { idAttr: 'id', parentAttr: 'parentId', childrenAttr: 'children' }) :NodeItem[] {
 
+
+	/*** Aux functions ***/
+
+	removeNodeById(nodeId:number, list:any[]) :any[] {
+		return _.reject(list, (item) => {
+			return item.id === nodeId || item.parentId === nodeId;  
+      });
+	}
+	
+
+	buildTree(list:NodeItem[]): NodeItem[] {
 
 		let treeList = [];
 		let lookup = {};
 
 		list.forEach(function(obj) {
 
-			lookup[obj[Config.idAttr]] = obj;
-			obj[Config.childrenAttr] = [];
+			lookup[obj['id']] = obj;
+			obj['children'] = [];
 		});
 
 		list.forEach(function(obj) {
 
-			if (obj[Config.parentAttr] != null) { // has subnodes
-				lookup[obj[Config.parentAttr]][Config.childrenAttr].push(obj);
+			if (obj['parentId'] != null) { // has subnodes
+				lookup[obj['parentId']]['children'].push(obj);
 			} else {
 				treeList.push(obj);
 			}

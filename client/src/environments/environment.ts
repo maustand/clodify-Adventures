@@ -10,5 +10,7 @@ export const environment = {
   	REMOVE: 'remove',
   	ADD: 'add',
   	EDIT: 'edit'
-  }
+  },
+  NODEDEFAULTNAME: 'myNode'
+
 };

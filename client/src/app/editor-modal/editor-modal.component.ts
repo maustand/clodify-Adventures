@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { NodeItem } from '../models/node-item';
-import { EditorViewModel } from '../models/editorViewModel';
+import { Edition } from '../models/edition';
 import { environment } from '../../environments/environment'
 
 @Component({
@@ -17,42 +17,55 @@ export class EditorModalComponent implements OnInit {
   private visible: boolean;
   private visibleAnimate:boolean;
   private isEdition: boolean;
-  private viewModel: EditorViewModel;
+  private viewModel: Edition;
   private actionsList: any[];
 
-
   constructor(){
-    this.viewModel = new EditorViewModel();
-    this.visible = false;
-    this.visibleAnimate = false;
-    this.isEdition = false;
   }
 
-  public show(isEdition): void {
-    this.visible = true;
-    this.visibleAnimate = true;
-    this.isEdition = isEdition;
-    console.log(this.lastSltedNode.name, "fon editor")
+  public show(isEditing): void {
 
-    if (isEdition) {
+    if (isEditing) {
       this.viewModel.name = this.lastSltedNode.name;
 
+      if (this.lastSltedNode.isNew === false ) {
+        this.viewModel.action = environment.actions.EDIT;
+      }
     }
     else {
-
       this.viewModel.action = environment.actions.ADD;
-
+      this.viewModel.name = '';
     }
+
+    this.visible = true;
+    this.visibleAnimate = true;
+
+    this.viewModel.isRootNode =  false;
+    this.isEdition = isEditing;
   }
 
-  public hide(): void {
+  private hide(): void {
     this.visibleAnimate = false;
     this.visible = false;
   }
 
   private save(event): void {
-    let myNewNode = new NodeItem();
-    this.evtOnEditionSave.emit(this.viewModel);
+
+    if(!this.viewModel.name){
+      this.viewModel.name = environment.NODEDEFAULTNAME;
+    }
+
+    if(this.isEdition) {
+      this.viewModel.id = this.lastSltedNode.id;
+    }
+    else {
+      this.viewModel.id = new Date().getTime();
+      this.viewModel.parentId = (this.viewModel.isRootNode) ? null: this.lastSltedNode.id;
+    }
+
+
+    this.evtOnEditionSave.emit({ data: this.viewModel, isEdition: this.isEdition });
+    this.hide();
   }
 
   private onContainerClicked(event: MouseEvent): void {
@@ -61,6 +74,10 @@ export class EditorModalComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.viewModel = new Edition();
+    this.visible = false;
+    this.visibleAnimate = false;
+    this.isEdition = false;
   }
 
 }

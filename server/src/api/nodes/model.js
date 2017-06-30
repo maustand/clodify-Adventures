@@ -11,7 +11,7 @@ const nodesSchema = new Schema({
     type: String
   },
   parentId: {
-    type: String,
+    type: Number,
     default: null
   }
 }, {
@@ -22,7 +22,7 @@ nodesSchema.methods = {
   view (full) {
     const view = {
       // simple view
-      id: this.id,
+      id: parseInt(this.id),
       name: this.name,
       parentId: this.parentId
     }

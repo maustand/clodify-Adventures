@@ -16,14 +16,15 @@
             <label for="txt-node-name" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
               <input name="nameNode" type="text" class="form-control" id="txt-node-name" placeholder="Type the node name or it will be set by default"
-              [maxLength]="30" [(ngModel)]="viewModel.nameNode">
+              [maxLength]="30" [(ngModel)]="viewModel.name">
             </div>
           </div>
-          <div  *ngIf="!IsEdition;" class="form-group">
+          <div  *ngIf="!IsEdition" class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <div class="checkbox">
                 <label>
-                  <input name="isRootCheck" [(ngModel)]="viewModel.isRootNode" type="checkbox"> Add to root of the treeview ?
+                  <input name="isRootCheck" type="checkbox" 
+                  [(ngModel)]="viewModel.isRootNode"> Add to root of the treeview ?
                 </label>
               </div>
             </div>

@@ -8,11 +8,11 @@ export class NodeItem {
 	isNew: boolean;
 
 	constructor(id = 0, name = "MyNewNode", parentId = null, children = [], action = "", isNew = false) {
-		this.id = id
-		this.name = name
-		this.parentId = parentId
-		this.children = children
-		this.action = action
-		this.isNew = isNew
+		this.id = id;
+		this.name = name;
+		this.parentId = parentId;
+		this.children = children;
+		this.action = action;
+		this.isNew = isNew;
 	}
 };

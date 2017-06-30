@@ -3,9 +3,7 @@ import { NodesService } from '../shared/nodes.service';
 import { TreeComponent } from 'angular-tree-component';
 import { environment } from '../../environments/environment'
 import { NodeItem } from '../models/node-item';
-import { EditorViewModel } from '../models/editorViewModel';
-import { Action } from '../models/action'; 
-
+import { Edition } from '../models/edition';
 import * as _ from "lodash";
 
 
@@ -25,16 +23,18 @@ export class TreeviewComponent implements OnInit {
   private lastSltedNode: NodeItem; 
   private NodesList: NodeItem[];
   private originalNodeList: NodeItem[];
-  private actionsList:Action[];
-  private ifItCanDoAction: boolean;
-  private IsEdition: boolean;
+  private actionsList:Edition[];
 
 	constructor(private _nodeService:NodesService) {
 		this.NodesList = [];
     this.actionsList = [];
-    this.ifItCanDoAction = false;
-    this.IsEdition = false;
 	}
+
+  // Aux function to refresh the treeview, when crud operation has been done.
+  private refreshTree() :void {
+      this.NodesList = this._nodeService.buildTree(this.originalNodeList);
+      this.tree.treeModel.update();
+  }
 
   // loads the treeview and buid it
 	private loadNodesList() : void {
@@ -46,34 +46,25 @@ export class TreeviewComponent implements OnInit {
 
   public onTreeNodeActived(event) : void {
     this.lastSltedNode = event.node.data;
-
   }
 
   public removeNode() : void {
       if (this.lastSltedNode) {
-      
-      this.originalNodeList = _.reject(this.originalNodeList, (item) => {
-        return item.id === this.lastSltedNode.id || item.parentId === this.lastSltedNode.id;  
-      });
-
+        this.originalNodeList = this._nodeService.removeNodeById(this.lastSltedNode.id , this.originalNodeList);
 
       if (this.lastSltedNode.action === environment.actions.ADD) {
-        this.actionsList = _.reject(this.actionsList, (item) => {
-          return item.id === this.lastSltedNode.id || item.parentId === this.lastSltedNode.id;  
-        });
+        this.actionsList = this._nodeService.removeNodeById(this.lastSltedNode.id , this.actionsList);
       }
       else {
 
-        let myAction = new Action();
+        let myAction = new Edition();
 
         myAction.id = this.lastSltedNode.id;
         myAction.action = environment.actions.REMOVE;
-        this.actionsList.push(myAction)
+        this.actionsList.push(myAction);
       }
 
-      this.NodesList = this._nodeService.buildTree(this.originalNodeList);
-      this.tree.treeModel.update();
-
+      this.refreshTree();
     }
   }
 
@@ -82,10 +73,56 @@ export class TreeviewComponent implements OnInit {
   }
 
 
-  public handleNewNodeEdition(newNode): void {
-    if (newNode.action === environment.actions.ADD) {
-      this.actionsList.push(newNode);
+
+  /** 
+    This func is the handler of the eventEmitter, 
+    dispatched from the child cmp "Editor Modal" 
+    It deals with the new/editon nodes and adds 
+    an action to the actionList for being sent to the server.
+  **/
+  public handleNewNodeEdition(event): void {
+
+  let index = 0;
+
+  if (event.isEdition === false) {
+      
+      // creates a new item in the originalNodeList ( util for build the tree after with the new element included)
+      this.originalNodeList.push(new NodeItem(event.data.id,
+        event.data.name,
+        event.data.parentId,
+        [],
+        event.data.action,
+        true
+      )); 
+
+      this.actionsList.push(event.data); 
+
     }
+    else {
+
+      this.originalNodeList.map((x) => {
+        if (x.id === event.data.id ){
+          x.name = event.data.name;
+        }
+        return x;
+      });
+
+
+      if (event.data.action === environment.actions.ADD ) {
+
+        this.actionsList.map((x) => {
+          if (x.id === event.data.id ){
+            x.name = event.data.name;
+          }
+          return x;
+        });
+      }
+      else {
+        this.actionsList.push(event.data); //  it is editing a pre existing element.
+      }
+    }
+  
+    this.refreshTree();
   }
 
   ngOnInit() {
