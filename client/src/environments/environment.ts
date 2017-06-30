@@ -5,5 +5,10 @@
 
 export const environment = {
   production: false,
-  serverAPIUrl: 'http://0.0.0.0:9000/'
+  serverAPIUrl: 'http://0.0.0.0:9000/',
+  actions: {
+  	REMOVE: 'remove',
+  	ADD: 'add',
+  	EDIT: 'edit'
+  }
 };

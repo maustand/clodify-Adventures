@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { NodeItem } from '../models/node-item';
+import { EditorViewModel } from '../models/editorViewModel';
+import { environment } from '../../environments/environment'
 
 @Component({
   selector: 'app-editor-modal',
@@ -6,30 +10,52 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editor-modal.component.scss']
 })
 export class EditorModalComponent implements OnInit {
-  
-  public visible: boolean;
+
+  @Input() lastSltedNode: NodeItem;
+  @Output() evtOnEditionSave  = new EventEmitter();
+
+  private visible: boolean;
   private visibleAnimate:boolean;
+  private isEdition: boolean;
+  private viewModel: EditorViewModel;
+  private actionsList: any[];
+
 
   constructor(){
-  	this.visible = false;
-  	this.visibleAnimate = false;
+    this.viewModel = new EditorViewModel();
+    this.visible = false;
+    this.visibleAnimate = false;
+    this.isEdition = false;
   }
 
-  public show(): void {
+  public show(isEdition): void {
     this.visible = true;
-    setTimeout(() => this.visibleAnimate = true, 100);
+    this.visibleAnimate = true;
+    this.isEdition = isEdition;
+    console.log(this.lastSltedNode.name, "fon editor")
+
+    if (isEdition) {
+      this.viewModel.name = this.lastSltedNode.name;
+
+    }
+    else {
+
+      this.viewModel.action = environment.actions.ADD;
+
+    }
   }
 
   public hide(): void {
     this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300);
+    this.visible = false;
   }
 
-  public save(): void {
-  	console.log("OnSaveMOdal")
+  private save(event): void {
+    let myNewNode = new NodeItem();
+    this.evtOnEditionSave.emit(this.viewModel);
   }
 
-  public onContainerClicked(event: MouseEvent): void {
+  private onContainerClicked(event: MouseEvent): void {
     if ((<HTMLElement>event.target).classList.contains('modal')) {
       this.hide();
     }

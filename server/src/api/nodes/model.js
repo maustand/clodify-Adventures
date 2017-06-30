@@ -4,8 +4,8 @@ import shortid from 'shortid';
 
 const nodesSchema = new Schema({
   _id: {
-    type: String,
-    default: shortid.generate
+    type: Number,
+    default: new Date().getTime()
   },
   name: {
     type: String
