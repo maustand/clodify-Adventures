@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { NodesService } from '../shared/nodes.service';
+import { NotificationsService } from 'angular2-notifications-lite';
 import { TreeComponent } from 'angular-tree-component';
 import { environment } from '../../environments/environment'
 import { NodeItem } from '../models/node-item';
@@ -25,7 +26,13 @@ export class TreeviewComponent implements OnInit {
   private originalNodeList: NodeItem[];
   private actionsList:Edition[];
 
-	constructor(private _nodeService:NodesService) {
+  public optionsNotification = {
+    position: ["bottom", "right"],
+    timeOut: 3000,
+    lastOnBottom: true,
+  };
+
+	constructor(private _nodeService:NodesService, private _notifyService: NotificationsService) {
 		this.NodesList = [];
     this.actionsList = [];
 	}
@@ -72,6 +79,15 @@ export class TreeviewComponent implements OnInit {
   public saveAll() : void {
     this._nodeService.update(this.actionsList).subscribe((response) => {
       this.actionsList = [];
+
+       this._notifyService.success(
+            environment.i18n.TITLE,
+            environment.i18n.MESSAGE, {
+                showProgressBar: true,
+                pauseOnHover: false,
+                clickToClose: true
+           }
+       )
     });
   }
 

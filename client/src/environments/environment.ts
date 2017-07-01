@@ -11,6 +11,10 @@ export const environment = {
   	ADD: 'add',
   	EDIT: 'edit'
   },
-  NODEDEFAULTNAME: 'myNode'
+  NODEDEFAULTNAME: 'myNode',
+  i18n:{
+  	TITLE: 'Save',
+  	MESSAGE: 'Changes have been saved successfully.',
+  }
 
 };
