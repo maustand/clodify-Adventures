@@ -25,6 +25,7 @@ export class TreeviewComponent implements OnInit {
   private NodesList: NodeItem[];
   private originalNodeList: NodeItem[];
   private actionsList:Edition[];
+  private isExpanded: boolean;
 
   public optionsNotification = {
     position: ["bottom", "right"],
@@ -35,6 +36,7 @@ export class TreeviewComponent implements OnInit {
 	constructor(private _nodeService:NodesService, private _notifyService: NotificationsService) {
 		this.NodesList = [];
     this.actionsList = [];
+    this.isExpanded = false;
 	}
 
   // Aux function to refresh the treeview, when crud operation has been done.
@@ -89,6 +91,17 @@ export class TreeviewComponent implements OnInit {
            }
        )
     });
+  }
+
+  public onClickExpandCollapse() : void {
+    if(!this.isExpanded){
+      this.tree.treeModel.expandAll()
+      this.isExpanded = true;
+    }
+    else {
+      this.tree.treeModel.collapseAll()
+      this.isExpanded = false;
+    }
   }
 
 
