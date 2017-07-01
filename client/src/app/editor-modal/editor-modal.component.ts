@@ -2,7 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@
 import { Validators } from '@angular/forms';
 import { NodeItem } from '../models/node-item';
 import { Edition } from '../models/edition';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-editor-modal',
@@ -40,7 +41,6 @@ export class EditorModalComponent implements OnInit {
   }
 
   private save(event): void {
-
     let myEdition = new Edition();
     
     myEdition.name = (!this.viewModel.name) ? this.viewModel.name = environment.NODEDEFAULTNAME : this.viewModel.name;
@@ -51,7 +51,7 @@ export class EditorModalComponent implements OnInit {
     }
     else {
       myEdition.id = new Date().getTime();
-      myEdition.parentId = (this.viewModel.isRootNode) ? null: this.lastSltedNode.id; // if is rootNode, it will added to the root of the Treeview.
+      myEdition.parentId = (this.viewModel.isRootNode || _.isEmpty(this.lastSltedNode)) ? null: this.lastSltedNode.id; // if is rootNode, it will added to the root of the Treeview.
       myEdition.action = environment.actions.ADD;
     }
 

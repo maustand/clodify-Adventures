@@ -52,12 +52,10 @@
     "compression": "^1.6.2",
     "cors": "^2.7.1",
     "express": "^4.13.4",
-    "jsonfile": "^3.0.0",
     "lodash": "^4.13.1",
     "morgan": "^1.7.0",
     "querymen": "^2.0.0",
     "request": "^2.74.0",
-    "request-promise": "^4.1.1",
-    "shortid": "^2.2.8"
+    "request-promise": "^4.1.1"
   }
 }

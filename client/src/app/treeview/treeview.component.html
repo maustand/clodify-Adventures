@@ -6,8 +6,7 @@
 
 		<div class="btn-group" role="group" aria-label="Crud Actions">
 			<button type="button" class="btn btn-default"
-			 (click)="myEditorModal.show(false)" 
-			 [disabled]="(!lastSltedNode)">Add  
+			 (click)="myEditorModal.show(false)">Add  
 				<i class="glyphicon glyphicon-plus"></i>
 			</button>
 
@@ -27,7 +26,7 @@
 		<div class="btn-group pull-right" role="group" aria-label="Save All">
 			<button type="button" class="btn btn-success"
 			 (click)="saveAll()"
-			 [disabled]="(!lastSltedNode)">Save All  
+			 [disabled]="(actionsList.length === 0)">Save All  
 				<i class="glyphicon glyphicon-floppy-disk"></i>
 			</button>
 		</div>

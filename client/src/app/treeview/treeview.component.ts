@@ -70,9 +70,8 @@ export class TreeviewComponent implements OnInit {
   }
 
   public saveAll() : void {
-    console.log(this.actionsList, "list");
     this._nodeService.update(this.actionsList).subscribe((response) => {
-      console.log(response);
+      this.actionsList = [];
     });
   }
 
