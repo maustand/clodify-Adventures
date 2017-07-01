@@ -15,10 +15,10 @@ export class EditorModalComponent implements OnInit {
   @Input() lastSltedNode: NodeItem;
   @Output() evtOnEditionSave  = new EventEmitter();
 
-  private viewModel: Edition = new Edition();
-  public  visible:boolean = false;
-  private visibleAnimate:boolean = false;
-  private isEdition: boolean = false;
+  private viewModel: Edition;
+  public  visible:boolean;
+  private visibleAnimate:boolean;
+  private isEdition: boolean;
 
   constructor(){
   }
@@ -65,6 +65,10 @@ export class EditorModalComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.viewModel = new Edition();
+    this.visible = false;
+    this.visibleAnimate = false;
+    this.isEdition = false;
   }
   
 
