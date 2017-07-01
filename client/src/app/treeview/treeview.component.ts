@@ -81,6 +81,8 @@ export class TreeviewComponent implements OnInit {
   public saveAll() : void {
     this._nodeService.update(this.actionsList).subscribe((response) => {
       this.actionsList = [];
+      this.tree.treeModel.collapseAll()
+      this.isExpanded = false;
 
        this._notifyService.success(
             environment.i18n.TITLE,
