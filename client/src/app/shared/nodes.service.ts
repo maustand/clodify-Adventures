@@ -19,9 +19,9 @@ export class NodesService {
 		.map(data => data );
 	}
 
-	update(payload: Edition) {
+	update(payload: Edition[]) {
 		return this.apiService
-		.put('/this/', payload )
+		.put('nodes/', payload )
 		.map(data => data);
 	}
 

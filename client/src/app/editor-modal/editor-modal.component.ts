@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { NodeItem } from '../models/node-item';
 import { Edition } from '../models/edition';
@@ -31,9 +31,12 @@ export class EditorModalComponent implements OnInit {
   }
 
   private hide(): void {
-    console.log(this.viewModel)
     this.visibleAnimate = false;
     this.visible = false;
+  }
+
+  AfterViewInit (){
+    this.isEdition = true;
   }
 
   private save(event): void {
@@ -48,7 +51,7 @@ export class EditorModalComponent implements OnInit {
     }
     else {
       myEdition.id = new Date().getTime();
-      myEdition.parentId = (this.viewModel.isRootNode) ? null: this.lastSltedNode.id;
+      myEdition.parentId = (this.viewModel.isRootNode) ? null: this.lastSltedNode.id; // if is rootNode, it will added to the root of the Treeview.
       myEdition.action = environment.actions.ADD;
     }
 

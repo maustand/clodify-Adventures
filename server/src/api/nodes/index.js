@@ -1,13 +1,9 @@
-import { Router } from 'express'
-import { middleware as query } from 'querymen'
-import { middleware as body } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
-import { schema } from './model'
-export Nodes, { schema } from './model'
+import { Router } from 'express';
+import { middleware as query } from 'querymen';
+import bodymen from "bodymen";
+import { index, update } from './controller';
 
-const router = new Router()
-const { name, parentId } = schema.tree
-
+const router = new Router();
 /**
  * @api {post} /nodes Create nodes
  * @apiName CreateNodes
@@ -18,9 +14,9 @@ const { name, parentId } = schema.tree
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Nodes not found.
  */
-router.post('/',
-  body({ name, parentId }),
-  create)
+// router.post('/',
+//   body({ name, parentId }),
+//   create);
 
 /**
  * @api {get} /nodes Retrieve nodes
@@ -32,21 +28,11 @@ router.post('/',
  */
 router.get('/',
   query(),
-  index)
+  index);
+
 
 /**
- * @api {get} /nodes/:id Retrieve nodes
- * @apiName RetrieveNodes
- * @apiGroup Nodes
- * @apiSuccess {Object} nodes Nodes's data.
- * @apiError {Object} 400 Some parameters may contain invalid values.
- * @apiError 404 Nodes not found.
- */
-router.get('/:id',
-  show)
-
-/**
- * @api {put} /nodes/:id Update nodes
+ * @api {put} /nodes/ Update nodes
  * @apiName UpdateNodes
  * @apiGroup Nodes
  * @apiParam name Nodes's name.
@@ -55,18 +41,17 @@ router.get('/:id',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Nodes not found.
  */
-router.put('/:id',
-  body({ name, parentId }),
-  update)
+router.put('/',
+	bodymen.middleware({
+		id: {
+			type: Number
+		  },
+		  name: {
+		    type: String
+		  },
+		  action: {
+		    type: String
+		  }
+	}), update);
 
-/**
- * @api {delete} /nodes/:id Delete nodes
- * @apiName DeleteNodes
- * @apiGroup Nodes
- * @apiSuccess (Success 204) 204 No Content.
- * @apiError 404 Nodes not found.
- */
-router.delete('/:id',
-  destroy)
-
-export default router
+export default router;

@@ -31,8 +31,8 @@ export class TreeviewComponent implements OnInit {
 	}
 
   // Aux function to refresh the treeview, when crud operation has been done.
-  private refreshTree() :void {
-      this.NodesList = this._nodeService.buildTree(this.originalNodeList);
+  private refreshTree(data) :void {
+      this.NodesList = this._nodeService.buildTree(data);
       this.tree.treeModel.update();
   }
 
@@ -65,12 +65,15 @@ export class TreeviewComponent implements OnInit {
       }
 
       this.lastSltedNode = null;
-      this.refreshTree();
+      this.refreshTree(this.originalNodeList);
     }
   }
 
   public saveAll() : void {
-    console.log(this.actionsList);
+    console.log(this.actionsList, "list");
+    this._nodeService.update(this.actionsList).subscribe((response) => {
+      console.log(response);
+    });
   }
 
 
@@ -120,7 +123,7 @@ export class TreeviewComponent implements OnInit {
       }
     }
   
-    this.refreshTree();
+    this.refreshTree(this.originalNodeList);
   }
 
   ngOnInit() {

@@ -26,35 +26,10 @@ const config = {
     port: process.env.PORT || 9000,
     ip: process.env.IP || '0.0.0.0',
     masterKey: requireProcessEnv('MASTER_KEY'),
-    mongo: {
-      options: {
-        db: {
-          safe: true
-        }
-      }
-    }
-  },
-  test: {
-    mongo: {
-      uri: 'mongodb://localhost/cloudify-test',
-      options: {
-        debug: false
-      }
-    }
-  },
-  development: {
-    mongo: {
-      uri: 'mongodb://localhost/cloudify-dev',
-      options: {
-        debug: true
-      }
-    }
-  },
-  production: {
-    ip: process.env.IP || undefined,
-    port: process.env.PORT || 8080,
-    mongo: {
-      uri: process.env.MONGODB_URI || 'mongodb://localhost/cloudify'
+    actions: {
+      REMOVE: 'remove',
+      ADD: 'add',
+      EDIT: 'edit'
     }
   }
 }
