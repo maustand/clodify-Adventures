@@ -35,23 +35,25 @@
 
 	<div class="col-sm-12 col-md-12 col-lg-12">
 
-		<tree-root 
-			[nodes]="NodesList"
-			(activate)="onTreeNodeActived($event)">
-		</tree-root>	
+		<div [hidden]="NodesList.length === 0" class="tree-wrapper">
+			<tree-root
+				[nodes]="NodesList"
+				(activate)="onTreeNodeActived($event)">
+			</tree-root>
+		</div>
+
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12">
 
-
 		<div class="btn-group" role="group" aria-label="Collapse All">
 			<button type="button" class="btn btn-default"
-			[disabled]="(NodesList.length === 0)">Expand All</button>
+			[hidden]="(NodesList.length === 0)">Expand All</button>
 		</div>
 
 		<div class="btn-group" role="group" aria-label="Expand All">
 			<button type="button" class="btn btn-default"
-			[disabled]="(NodesList.length === 0)">Collapse All</button>
+			[hidden]="(NodesList.length === 0)">Collapse All</button>
 		</div>
 
 	</div>

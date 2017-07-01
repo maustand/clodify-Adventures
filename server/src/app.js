@@ -9,9 +9,9 @@ const server = http.createServer(app);
 
 fs.stat('storage/treeview.json', (err) => {
 	if (err) {
-		fs.mkdirSync('storage');
-		fs.writeFile('storage/treeview.json', JSON.stringify([]));
-		console.log('Treeview Json storage has been created.');
+		fs.mkdir('storage', () => {
+			fs.writeFile('storage/treeview.json', JSON.stringify([]));
+		});
 	}
 });
 

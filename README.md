@@ -13,8 +13,8 @@ $ npm install
 
 # Run
     -- Open terminal taps on client and server folder.
-    -- On server folder, run  nodejs server with `${npm run dev}` .
-    -- On client folder, run  nodejs server with `${ng serve}` .
+    -- On server folder, run  nodejs server with "npm run dev".
+    -- On client folder, run  nodejs server with "ng serve" .
 
 # Notes
 	-- client app will run on http://localhost:4200/

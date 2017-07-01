@@ -1,2 +1,6 @@
 div[data-view=treeview] {
+
+	[hidden] { // overwrite display on ng [hidden]
+  		display: none;
+	}
 }
