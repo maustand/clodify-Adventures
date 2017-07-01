@@ -64,6 +64,7 @@ export class TreeviewComponent implements OnInit {
         this.actionsList.push(myAction);
       }
 
+      this.lastSltedNode = null;
       this.refreshTree();
     }
   }
@@ -84,7 +85,7 @@ export class TreeviewComponent implements OnInit {
 
   let index = 0;
 
-  if (event.isEdition === false) {
+  if (!event.isEdition) {
       
       // creates a new item in the originalNodeList ( util for build the tree after with the new element included)
       this.originalNodeList.push(new NodeItem(event.data.id,
@@ -107,18 +108,15 @@ export class TreeviewComponent implements OnInit {
         return x;
       });
 
+      index = _.findIndex(this.actionsList, ['id', event.data.id ]);
 
-      if (event.data.action === environment.actions.ADD ) {
+      if (index >= 0) {
+        this.actionsList[index].name = event.data.name;
 
-        this.actionsList.map((x) => {
-          if (x.id === event.data.id ){
-            x.name = event.data.name;
-          }
-          return x;
-        });
       }
       else {
         this.actionsList.push(event.data); //  it is editing a pre existing element.
+
       }
     }
   
