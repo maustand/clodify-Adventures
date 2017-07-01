@@ -3,7 +3,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Editor</h3>    
+        <h3>
+          <span>{{ isEdition? 'Edit': 'Add'}}</span>
+        </h3>    
       </div>
       <div class="modal-body">
 
@@ -15,7 +17,7 @@
               [maxLength]="30" [(ngModel)]="viewModel.name">
             </div>
           </div>
-          <div  *ngIf="!IsEdition" class="form-group">
+          <div  *ngIf="!isEdition" class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <div class="checkbox">
                 <label>
